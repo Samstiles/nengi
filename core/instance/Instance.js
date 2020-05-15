@@ -108,9 +108,26 @@ class Instance extends EventEmitter {
             consoleLogLogo()
         }
 
+        console.log('@@@@')
+        console.log('@@@@')
+        console.log('@@@@')
+        console.log('@@@@')
+        console.log('@@@@')
+        console.log('@@@@')
+        console.log('@@@@')
+        console.log('@@@@')
+        console.log('@@@@')
+        console.log('@@@@')
+        console.log('@@@@')
+        console.log('@@@@')
+        console.log('@@@@')
+        console.log('@@@@')
+        console.log(webConfig.clientVerificationFn)
+
+
         let verifyFn
-        if (this.config.clientVerificationFn) {
-            verifyFn = this.config.clientVerificationFn
+        if (webConfig.clientVerificationFn) {
+            verifyFn = webConfig.clientVerificationFn
         } else {
             verifyFn = (_, next) => { next(true) }
         }
@@ -445,7 +462,7 @@ class Instance extends EventEmitter {
             //console.log('>>>>>', message.protocol, message.outers[0].protocol, message.outers[0].inners[0].protocol)
 
             //message.outers[0].protocol
-            //message.outers[0].protocol.properties.inners.protocol = message.outers[0].protocol.inners.prototype.protocol 
+            //message.outers[0].protocol.properties.inners.protocol = message.outers[0].protocol.inners.prototype.protocol
         }
         */
 
@@ -563,8 +580,8 @@ class Instance extends EventEmitter {
         //console.log('sources', this.sources)
         /*
         console.log(
-            'entsA', this.entities.toArray().length, 
-            'entsB', this._entities.toArray().length, 
+            'entsA', this.entities.toArray().length,
+            'entsB', this._entities.toArray().length,
             'clients', this.clients.toArray().length,
             'channels', this.channels.toArray().length
         )
@@ -739,7 +756,7 @@ class Instance extends EventEmitter {
             let entity = this.getEntity(vision.noLongerVisible[i])
             //this.components.snapshotDeleteEntity(entity, snapshot)
         }
-        // TODO alias 
+        // TODO alias
 
         snapshot.localEvents = vision.events
         //console.log('snapshot', snapshot)
