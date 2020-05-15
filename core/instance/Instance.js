@@ -108,8 +108,18 @@ class Instance extends EventEmitter {
             consoleLogLogo()
         }
 
+        let verifyFn
+        if (this.config.clientVerificationFn) {
+            verifyFn = this.config.clientVerificationFn
+        } else {
+            verifyFn = (_, next) => { next() }
+        }
+
         if (typeof webConfig.port !== 'undefined') {
-            this.wsServer = new WebSocketServer({ port: webConfig.port }, () => {
+            this.wsServer = new WebSocketServer({
+                port: webConfig.port,
+                verifyClient: verifyFn
+            }, () => {
                 //console.log(this.wsServer)
             })
         } else if (typeof webConfig.httpServer !== 'undefined') {
@@ -230,7 +240,7 @@ class Instance extends EventEmitter {
             this.pendingClients.delete(client.connection)
             this.addClient(client)
             client.accepted = true
-    
+
             var bitBuffer = createConnectionResponseBuffer(true, text)
             var buffer = bitBuffer.toBuffer()
 
@@ -246,7 +256,7 @@ class Instance extends EventEmitter {
 
             client.id = -1
             client.instance = null
-            
+
             client.connection.close()
             if (typeof this.disconnectCallback === 'function') {
                 this.disconnectCallback(client, null)
@@ -282,7 +292,7 @@ class Instance extends EventEmitter {
             this.clients.remove(client)
             client.id = -1
             client.instance = null
-            
+
             if (typeof this.disconnectCallback === 'function') {
                 this.disconnectCallback(client, event)
             }
@@ -559,7 +569,7 @@ class Instance extends EventEmitter {
             'channels', this.channels.toArray().length
         )
         */
-        
+
 
 
         //console.log(this.entities.toArray())
