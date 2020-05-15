@@ -112,7 +112,7 @@ class Instance extends EventEmitter {
         if (this.config.clientVerificationFn) {
             verifyFn = this.config.clientVerificationFn
         } else {
-            verifyFn = (_, next) => { next() }
+            verifyFn = (_, next) => { next(true) }
         }
 
         if (typeof webConfig.port !== 'undefined') {
