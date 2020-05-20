@@ -108,23 +108,6 @@ class Instance extends EventEmitter {
             consoleLogLogo()
         }
 
-        console.log('@@@@')
-        console.log('@@@@')
-        console.log('@@@@')
-        console.log('@@@@')
-        console.log('@@@@')
-        console.log('@@@@')
-        console.log('@@@@')
-        console.log('@@@@')
-        console.log('@@@@')
-        console.log('@@@@')
-        console.log('@@@@')
-        console.log('@@@@')
-        console.log('@@@@')
-        console.log('@@@@')
-        console.log(webConfig.clientVerificationFn)
-
-
         let verifyFn
         if (webConfig.clientVerificationFn) {
             verifyFn = webConfig.clientVerificationFn
@@ -149,7 +132,7 @@ class Instance extends EventEmitter {
         }
 
         this.wsServer.on('connection', (ws, req) => {
-            var client = this.connect(ws)
+            var client = this.connect(ws, req)
             ws.on('message', message => {
                 this.onMessage(message, client)
             })
@@ -293,9 +276,10 @@ class Instance extends EventEmitter {
         }
     }
 
-    connect(connection) {
+    connect(connection, request) {
         var client = new Client(this.config)
         client.connection = connection
+        client.request = request
         this.pendingClients.set(connection, client)
         return client
     }
